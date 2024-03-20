@@ -1,12 +1,12 @@
 package step;
 
-import io.cucumber.java.After;
+import org.junit.jupiter.api.AfterAll;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class AfterStep {
 
-    @After
+    @AfterAll
     public static void tearDown() throws InterruptedException{
         closeWebDriver();
     }
