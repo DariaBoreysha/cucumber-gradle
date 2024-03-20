@@ -1,16 +1,11 @@
 package step;
 
 import com.codeborne.selenide.Configuration;
-import io.cucumber.java.en.Given;
-import io.github.bonigarcia.wdm.WebDriverManager;
-
-import static com.codeborne.selenide.Selenide.open;
+import io.cucumber.java.BeforeAll;
 
 public class BeforeStep {
-
-    @Given("Open website {string}")
-    public void openWebsite(String url) {
+    @BeforeAll
+    public static void setup() {
         Configuration.headless = true;
-        open(url);
     }
 }

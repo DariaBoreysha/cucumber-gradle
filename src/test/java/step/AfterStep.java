@@ -1,15 +1,13 @@
 package step;
 
-import com.codeborne.selenide.WebDriverRunner;
 import io.cucumber.java.After;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
-import static com.codeborne.selenide.Selenide.sleep;
 
 public class AfterStep {
 
     @After
-    public void tearDown() throws InterruptedException{
+    public static void tearDown() throws InterruptedException{
         closeWebDriver();
     }
 

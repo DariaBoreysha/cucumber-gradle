@@ -13,14 +13,19 @@ import java.util.function.BooleanSupplier;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class LoginPageStep {
+    @Given("Open website {string}")
+    public void openURL(String url){
+        open(url);
+    }
 
     @Given("I am on basic page of website")
-    public void openWebSite() {
+    public void checkingPageAddress() {
         assertEquals(WebDriverRunner.url(), "https://www.demoblaze.com/");
     }
 
