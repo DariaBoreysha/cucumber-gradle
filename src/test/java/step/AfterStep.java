@@ -6,10 +6,10 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class AfterStep {
 
-    @AfterAll
+  /*  @AfterAll
     public static void tearDown() throws InterruptedException{
         closeWebDriver();
-    }
+    }*/
 
 /*    @io.cucumber.java.AfterStep
     public void makeScreenshot(){
