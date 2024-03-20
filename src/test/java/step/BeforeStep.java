@@ -10,7 +10,6 @@ public class BeforeStep {
 
     @Given("Open website {string}")
     public void openWebsite(String url) {
-        WebDriverManager.iedriver().setup();
         Configuration.headless = true;
         open(url);
     }
