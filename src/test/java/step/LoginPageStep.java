@@ -1,11 +1,13 @@
 package step;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -14,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
+@Slf4j
 public class LoginPageStep {
     @Given("Open website {string}")
     public void openURL(String url){
@@ -35,9 +38,14 @@ public class LoginPageStep {
         $("#loginusername").setValue(username);
         $("#loginpassword").setValue(password);
     }
-    @Then("I am logged in with my {}")
+    @And("I am logged in with my {}")
     public void checkingPagePresence(String username) throws InterruptedException{
         assertTrue($("a#nameofuser.nav-link").shouldBe(Condition.visible).getText().contains(username));
+    }
+
+    @Then("I log out")
+    public void loggingOut(){
+        $("#logout2").click();
     }
 
 

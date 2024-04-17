@@ -1,38 +1,96 @@
 plugins {
     id 'java'
+    id 'org.gradle.test-retry' version '1.5.8'
 }
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
+description = 'The shared API for the application'
+
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    testImplementation 'org.projectlombok:lombok:1.18.26'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
     testImplementation 'junit:junit:4.13.1'
+
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.11.1'
+
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.4.0'
+    implementation group: 'io.rest-assured', name: 'json-schema-validator', version: '5.4.0'
+    testImplementation group: 'io.rest-assured', name: 'json-path', version: '5.3.2'
+
+
     testImplementation 'com.codeborne:selenide:7.2.0'
     testImplementation 'io.cucumber:cucumber-java:7.15.0'
     testImplementation 'io.cucumber:cucumber-junit:7.14.0'
     testImplementation 'org.junit.vintage:junit-vintage-engine:5.7.2'
     testImplementation 'io.github.bonigarcia:webdrivermanager:5.7.0'
 
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.12'
+
+    implementation group: 'org.slf4j', name: 'jcl-over-slf4j', version: '2.0.12'
+    implementation group: 'org.slf4j', name: 'jul-to-slf4j', version: '2.0.12'
+
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.5.3'
+    implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.5.3'
+
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
+
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '2.2'
+
 }
-
-configurations {
-    cucumberRuntime {
-        extendsFrom testImplementation
-    }
-}
-
-
-
 
 test {
+    filter{
+        includeTestsMatching("*RunLoginTest*")
+    }
+    systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
+    retry{
+        //maxRetries = 3
+        //maxFailures = 10
+        failOnPassedAfterRetry = false
+    }
+    reports {
+        java.testResultsDir = layout.buildDirectory.dir("junit-xml")
+    }
+    reports {
+        junitXml{
+            outputPerTestCase = true
+            mergeReruns = true
+        }
+    }
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+        exceptionFormat "full"
+    }
     useJUnitPlatform()
 }
 
+
+tasks.register('smoke', Test) {
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+        exceptionFormat "full"
+    }
+    useJUnitPlatform {
+        includeTags("smoke")
+    }
+}
+
+tasks.register('regress', Test) {
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+        exceptionFormat "full"
+    }
+    useJUnitPlatform {
+        includeTags("regress")
+    }
+}
