@@ -65,6 +65,7 @@ public class RequestIn {
                  .then()
                  .log().all()
                  .assertThat().body("Envelope.Body.IsAnagramResponse.IsAnagramResult", equalTo("true"));
+         System.out.println("123");
      }
 
 
