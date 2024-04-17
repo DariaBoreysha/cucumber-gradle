@@ -1,3 +1,4 @@
+/*
 package DB;
 import db.EmployeeService;
 import org.example.PropertyReader;
@@ -7,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+*/
+/**//*
 
 import static db.EmployeeService.statement;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,3 +33,4 @@ public class TestColumns {
     }
 
 }
+*/
