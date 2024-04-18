@@ -3,12 +3,14 @@ package api;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
-import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import org.junit.Test;
 
-import static com.codeborne.selenide.Condition.text;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -65,8 +67,7 @@ public class RequestIn {
                  .then()
                  .log().all()
                  .assertThat().body("Envelope.Body.IsAnagramResponse.IsAnagramResult", equalTo("true"));
-         System.out.println("hello from new branch!");
-         System.out.println("hello from main branch!");
+
      }
 
 
